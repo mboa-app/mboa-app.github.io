@@ -184,8 +184,8 @@ footer{padding:32px 0;color:var(--muted);font-size:14px;border-top:1px solid var
   <h2 data-t="d_h">Gibt es genug, um die Karte zu füllen?</h2>
   <div class="grid3" id="datagrid">
     <div class="card"><div class="num">740.000+</div><p class="muted" data-t="d1">Menschen mit afrikanischen Wurzeln in Deutschland (Statistisches Bundesamt, ältere Zählung; neuere Schätzungen bis ca. 1 Million).</p></div>
-    <div class="card"><div class="num" id="n_shops">…</div><p class="muted" data-t="d2">Afro-Shops sind schon in OpenStreetMap eingetragen und können übernommen werden.</p></div>
-    <div class="card"><div class="num" id="n_church">…</div><p class="muted" data-t="d3">afrikanisch geprägte Gemeinden sind dort mit Namen auffindbar. Die echte Zahl ist viel höher: Viele Gemeinden mieten Säle und stehen in keiner Karte.</p></div>
+    <div class="card"><div class="num" id="n_shops" style="font-size:24px" data-t="pending">wird gezählt</div><p class="muted" data-t="d2">Afro-Shops sind schon in OpenStreetMap eingetragen und können übernommen werden.</p></div>
+    <div class="card"><div class="num" id="n_church" style="font-size:24px" data-t="pending">wird gezählt</div><p class="muted" data-t="d3">afrikanisch geprägte Gemeinden sind dort mit Namen auffindbar. Die echte Zahl ist viel höher: Viele Gemeinden mieten Säle und stehen in keiner Karte.</p></div>
   </div>
   <p class="muted" style="margin-top:16px" data-t="d_note">Auf dem Land ist die Karte dünner. Gerade dort hilft sie aber am meisten, weil man sonst gar nichts findet. Fehlende Gemeinden lassen sich über deren Webseiten und Facebook-Seiten nachtragen.</p>
 </div></section>
@@ -364,7 +364,7 @@ wa:"Demander par WhatsApp",nopay:"Le paiement se fait directement avec la presta
 church_type:"Église · pentecôtiste",svc:"Culte",svc_t:"Dimanche 11h · français & anglais",hall:"Salle paroissiale, 6,1 km",prayer:"Soirée de prière",prayer_t:"Mercredi 19h30 · en ligne & sur place",
 choir:"Chorale & jeunesse",choir_t:"Les nouveaux sont bienvenus",next:"Retenir la prochaine rencontre",claimed:"Annonce confirmée par l'église ✓",
 add_h:"Que proposes-tu ?",c_craft:"Fait main",c_other:"Autre",add_title:"Titre",add_where:"Où ?",add_approx:"Seulement le quartier",add_exact:"Afficher l'adresse exacte",
-add_contact:"Contact : le numéro WhatsApp s'affiche seulement après un clic",add_hint:"Note : vendre régulièrement de la nourriture demande une déclaration d'activité et une formation hygiène.",add_btn:"Publier l'annonce"
+add_contact:"Contact : le numéro WhatsApp s'affiche seulement après un clic",add_hint:"Note : vendre régulièrement de la nourriture demande une déclaration d'activité et une formation hygiène.",add_btn:"Publier l'annonce",pending:"comptage en cours"
 };
 const DE={};document.querySelectorAll("[data-t]").forEach(el=>{DE[el.dataset.t]=el.innerHTML});
 function setLang(l){
