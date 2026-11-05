@@ -7,3 +7,9 @@ App-Idee für die afrikanische Diaspora: eine Karte mit Flechterinnen, Essen und
 - Wir verwalten kein Geld. Die App vermittelt nur Kontakte, Zahlungen laufen direkt zwischen den Leuten.
 - Texte auf Deutsch und Französisch (Englisch folgt), alle über Übersetzungen, nichts fest im Code.
 - Vor jedem Veröffentlichen Jörg fragen.
+
+## Entscheidungen 05.11.2026
+- Eintragen bleibt kostenlos. Keine Gebühr als Spam-Schutz (Jörg: „keine Zahlungen“).
+- Spam-Schutz: WhatsApp-Rückwärts-Nummernprüfung wie bei meet-us-there (Nutzer schickt der App-Nummer eine Nachricht, kostenlos, offizielle Cloud API), höchstens 3 Einträge pro Konto, neue Einträge „ungeprüft“ mit automatischer KI-Prüfung, nach 3 Meldungen ausgeblendet.
+- Afro-Friseursalons und Afro-Shops gehören in die Vorab-Befüllung (OpenStreetMap). Inhaber können Einträge kostenlos übernehmen.
+- Geld höchstens über freiwillige Extras für Firmen (Shops, Salons) und später den Njangi-Manager. Private Anbieter und Gemeinden zahlen nie.
