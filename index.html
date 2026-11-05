@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Mboa – Entwurf</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Entwurf: Sprachleiste, Hero mit Handy, dann eine lange Seite. Handy-Screens sind reines HTML/CSS. */
+:root{
+  --paper:#FAF5EE; --card:#FFFFFF; --ink:#241A14; --muted:#6B5B50; --line:#E6DBCF;
+  --clay:#B4532A; --clay-ink:#fff; --leaf:#1F6B4F; --gold:#E0A526; --band:#2B1D15; --band-fg:#F6EDE3; --band-muted:#CDB9A6;
+  --hair:#8C3B6E; --food:#C8551F; --church:#2F5E9E; --shop:#1F7A50; --njangi:#6A4BB0;
+  --frame:#15100C; --map:#F1EBE1; --street:#FFFFFF; --park:#DCE8D3; --water:#CFE0EA;
+  --warn-bg:#FCEFD2; --warn:#7A4A00; --good-bg:#DDF0E4; --good:#1E6B44; --bad-bg:#F8DEDA; --bad:#8A2A1C;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(26px,4vw,36px);font-weight:800}
+h3{font-size:20px;font-weight:600}
+p{margin:0 0 1em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:64px 0;border-top:1px solid var(--line)}
+.kicker{font-weight:700;color:var(--clay);text-transform:uppercase;letter-spacing:.08em;font-size:13px;margin-bottom:8px}
+.lead{font-size:20px;color:var(--muted);max-width:640px}
+.muted{color:var(--muted)}
+/* Sprachleiste */
+.bar{position:sticky;top:0;z-index:10;background:rgba(250,245,238,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-family:"Bricolage Grotesque";font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px}
+.brand .dot{width:22px;height:22px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--clay)}
+.draft{font-size:12px;font-weight:700;background:var(--warn-bg);color:var(--warn);padding:3px 8px;border-radius:99px;margin-left:6px}
+.lang{display:flex;gap:4px}
+.lang button{font:inherit;font-weight:700;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;min-height:40px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* Hero */
+.hero{padding:48px 0 64px;border:0}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:12px;font-weight:700;text-decoration:none}
+.btn.primary{background:var(--clay);color:var(--clay-ink)}
+.btn.ghost{border:2px solid var(--ink);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;padding:6px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line)}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+/* Handy */
+.phone{width:min(300px,100%);margin:0 auto;border-radius:38px;background:var(--frame);padding:9px;box-shadow:0 24px 48px -24px rgba(40,20,5,.5)}
+.screen{border-radius:30px;overflow:hidden;background:var(--card);height:590px;display:flex;flex-direction:column;font-size:13px;position:relative}
+.status{height:26px;display:flex;justify-content:space-between;align-items:center;padding:0 18px;font-size:11px;font-weight:700}
+.apphead{padding:6px 14px 10px}
+.search{display:flex;align-items:center;gap:8px;background:#F3EEE7;border-radius:12px;padding:9px 12px;color:var(--muted)}
+.fchips{display:flex;gap:6px;overflow:hidden;padding:8px 14px 10px}
+.fchip{flex:none;font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
+.fchip.on{color:#fff;border-color:transparent}
+.map{flex:1;position:relative;background:var(--map);overflow:hidden}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:translate(-50%,-100%) rotate(-45deg);display:grid;place-items:center;box-shadow:0 3px 6px rgba(0,0,0,.25);border:2px solid #fff}
+.pin span{transform:rotate(45deg);color:#fff;font-size:13px;font-weight:700}
+.me{position:absolute;width:16px;height:16px;border-radius:50%;background:#2F7DE1;border:3px solid #fff;box-shadow:0 0 0 8px rgba(47,125,225,.18);transform:translate(-50%,-50%)}
+.sheet{position:absolute;left:8px;right:8px;bottom:8px;background:#fff;border-radius:16px;padding:12px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.row{display:flex;gap:10px;align-items:center}
+.ava{width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;color:#fff;font-weight:800}
+.tabbar{display:flex;justify-content:space-around;border-top:1px solid var(--line);padding:8px 0 14px;font-size:10.5px;font-weight:700;color:var(--muted)}
+.tabbar div{display:flex;flex-direction:column;align-items:center;gap:3px}
+.tabbar b{width:22px;height:4px;border-radius:2px;background:transparent}
+.tabbar .on{color:var(--clay)} .tabbar .on b{background:var(--clay)}
+.small{font-size:11.5px;color:var(--muted)}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;background:#F3EEE7;margin:2px 3px 0 0}
+.wa{display:flex;justify-content:center;align-items:center;gap:6px;background:#1F9D55;color:#fff;font-weight:700;border-radius:12px;padding:10px;margin-top:10px}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:10px 0}
+.gal div{aspect-ratio:1;border-radius:8px}
+.scroll{flex:1;overflow:hidden;padding:0 14px}
+.listitem{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+/* Screens-Galerie */
+.screens{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
+.screens figure{margin:0}
+.screens figcaption{margin-top:14px;font-size:15px;text-align:center}
+.screens figcaption b{display:block;font-family:"Bricolage Grotesque";font-size:17px}
+/* Karten */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:800;margin-bottom:12px}
+.phase{border-left:6px solid var(--line)}
+.phase.p1{border-left-color:var(--clay)} .phase.p2{border-left-color:var(--njangi)} .phase.p3{border-left-color:var(--leaf)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;margin-bottom:8px}
+.b-warn{background:var(--warn-bg);color:var(--warn)} .b-good{background:var(--good-bg);color:var(--good)} .b-bad{background:var(--bad-bg);color:var(--bad)}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);margin-top:24px;font-size:16px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#F3EEE7;font-size:14px}
+.num{font-family:"Bricolage Grotesque";font-weight:800;font-size:40px;color:var(--clay);line-height:1}
+.band{background:var(--band);color:var(--band-fg)}
+.band .muted,.band .lead{color:var(--band-muted)}
+.band .card{background:#3A2A20;border-color:#4C392C;color:var(--band-fg)}
+footer{padding:32px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr)}
+  .screens{grid-template-columns:repeat(2,1fr)}
+  .grid3{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:620px){
+  .screens{grid-template-columns:minmax(0,1fr)}
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  body{font-size:16px}
+  table{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <div class="brand"><span class="dot"></span>Mboa <span class="draft" data-t="draft">Entwurf</span></div>
+  <div class="lang">
+    <button type="button" data-lang="de" aria-pressed="true">DE</button>
+    <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+  </div>
+</div></div>
+
+<!-- HERO -->
+<section class="hero"><div class="wrap">
+  <div>
+    <div class="kicker" data-t="hero_k">App-Idee für die afrikanische Diaspora</div>
+    <h1 data-t="hero_h">Ein Stück Heimat – gleich um die Ecke.</h1>
+    <p class="lead" data-t="hero_p">Mboa zeigt auf einer Karte, was die Community in deiner Nähe anbietet: Flechterinnen, afrikanisches Essen, Gemeinden, Afro-Shops. Und später den Njangi-Manager für deine Gruppe.</p>
+    <div class="chips">
+      <span class="chip"><i style="background:var(--hair)"></i><span data-t="c_hair">Haare &amp; Flechten</span></span>
+      <span class="chip"><i style="background:var(--food)"></i><span data-t="c_food">Essen &amp; Catering</span></span>
+      <span class="chip"><i style="background:var(--church)"></i><span data-t="c_church">Gemeinden</span></span>
+      <span class="chip"><i style="background:var(--shop)"></i><span data-t="c_shop">Afro-Shops</span></span>
+      <span class="chip"><i style="background:var(--njangi)"></i><span data-t="c_njangi">Njangi (später)</span></span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#screens" data-t="cta1">So sieht die App aus</a>
+      <a class="btn ghost" href="#entscheidung" data-t="cta2">Zur Entscheidung</a>
+    </div>
+  </div>
+  <div id="heroPhone"></div>
+</div></section>
+
+<!-- PROBLEM -->
+<section><div class="wrap">
+  <div class="kicker" data-t="prob_k">Das Problem</div>
+  <h2 data-t="prob_h">Die Community ist da – man findet sie nur nicht.</h2>
+  <div class="grid3">
+    <div class="card"><div class="ic" style="background:var(--hair)">✂</div><h3 data-t="p1_h">4 Stunden Zug für eine Frisur</h3><p class="muted" data-t="p1_p">Flechterinnen fahren stundenlang zu ihren Kundinnen, weil sie in ihrer Nähe niemand kennt. Für rund 90 € bleibt kaum ein Stundenlohn.</p></div>
+    <div class="card"><div class="ic" style="background:var(--food)">🍲</div><h3 data-t="p2_h">Angebote versinken in WhatsApp</h3><p class="muted" data-t="p2_p">Ndolé, Puff-Puff, Catering für Feste: Wer gut kocht, postet in Gruppen. Nach zwei Tagen ist der Beitrag weg, und wer neu ist, sieht ihn nie.</p></div>
+    <div class="card"><div class="ic" style="background:var(--church)">⛪</div><h3 data-t="p3_h">Die Kirche als Treffpunkt fehlt</h3><p class="muted" data-t="p3_p">Zu Hause ist die Gemeinde der Ort, an dem man sich trifft. Wer hier neu ist oder auf dem Land lebt, weiß oft nicht, wo es eine Gemeinde auf Französisch oder Englisch gibt.</p></div>
+  </div>
+</div></section>
+
+<!-- SCREENS -->
+<section id="screens"><div class="wrap">
+  <div class="kicker" data-t="scr_k">Prototyp</div>
+  <h2 data-t="scr_h">So könnte die App aussehen</h2>
+  <p class="lead" data-t="scr_p">Vier Beispiel-Bildschirme. Namen, Orte und Preise sind erfunden.</p>
+  <div class="screens">
+    <figure><div id="s1"></div><figcaption><b data-t="f1_h">Karte</b><span class="muted" data-t="f1_p">Alles in der Nähe, nach Kategorie gefiltert.</span></figcaption></figure>
+    <figure><div id="s2"></div><figcaption><b data-t="f2_h">Profil Flechterin</b><span class="muted" data-t="f2_p">Fotos, Preise ab, Kontakt per WhatsApp.</span></figcaption></figure>
+    <figure><div id="s3"></div><figcaption><b data-t="f3_h">Gemeinde</b><span class="muted" data-t="f3_p">Gottesdienst, Sprache, Treffen.</span></figcaption></figure>
+    <figure><div id="s4"></div><figcaption><b data-t="f4_h">Eintrag anlegen</b><span class="muted" data-t="f4_p">In 2 Minuten, Adresse bleibt auf Wunsch ungefähr.</span></figcaption></figure>
+  </div>
+</div></section>
+
+<!-- PHASEN -->
+<section><div class="wrap">
+  <div class="kicker" data-t="ph_k">Aufbau in Etappen</div>
+  <h2 data-t="ph_h">Eine App, die mit der Community wächst</h2>
+  <div class="grid3">
+    <div class="card phase p1"><span class="badge b-good" data-t="ph1_b">Phase 1 – Start</span><h3 data-t="ph1_h">Die Karte</h3><p class="muted" data-t="ph1_p">Gemeinden, Afro-Shops und Restaurants trage ich vorab aus öffentlichen Quellen ein. So ist die Karte ab Tag 1 gefüllt. Flechterinnen, Köchinnen und andere tragen sich kostenlos selbst ein.</p></div>
+    <div class="card phase p2"><span class="badge b-warn" data-t="ph2_b">Phase 2</span><h3 data-t="ph2_h">Njangi-Manager</h3><p class="muted" data-t="ph2_p">Beiträge, Reihenfolge, Strafen und Protokolle der Njangi-Gruppe in der App. Das ist der erste Teil, für den Gruppen etwas zahlen könnten.</p></div>
+    <div class="card phase p3"><span class="badge b-warn" data-t="ph3_b">Phase 3 – vielleicht</span><h3 data-t="ph3_h">Leute kennenlernen</h3><p class="muted" data-t="ph3_p">Kontakte und Freundschaften in der Community. Kommt erst, wenn genug Nutzer da sind, weil hier Moderation und Schutz vor Betrug nötig sind.</p></div>
+  </div>
+</div></section>
+
+<!-- DATEN -->
+<section><div class="wrap">
+  <div class="kicker" data-t="d_k">Erste Prüfung</div>
+  <h2 data-t="d_h">Gibt es genug, um die Karte zu füllen?</h2>
+  <div class="grid3" id="datagrid">
+    <div class="card"><div class="num">740.000+</div><p class="muted" data-t="d1">Menschen mit afrikanischen Wurzeln in Deutschland (Statistisches Bundesamt, ältere Zählung; neuere Schätzungen bis ca. 1 Million).</p></div>
+    <div class="card"><div class="num" id="n_shops">…</div><p class="muted" data-t="d2">Afro-Shops sind schon in OpenStreetMap eingetragen und können übernommen werden.</p></div>
+    <div class="card"><div class="num" id="n_church">…</div><p class="muted" data-t="d3">afrikanisch geprägte Gemeinden sind dort mit Namen auffindbar. Die echte Zahl ist viel höher: Viele Gemeinden mieten Säle und stehen in keiner Karte.</p></div>
+  </div>
+  <p class="muted" style="margin-top:16px" data-t="d_note">Auf dem Land ist die Karte dünner. Gerade dort hilft sie aber am meisten, weil man sonst gar nichts findet. Fehlende Gemeinden lassen sich über deren Webseiten und Facebook-Seiten nachtragen.</p>
+</div></section>
+
+<!-- KONKURRENZ -->
+<section><div class="wrap">
+  <div class="kicker" data-t="k_k">Ehrlich betrachtet</div>
+  <h2 data-t="k_h">Was die Leute heute nutzen</h2>
+  <table>
+    <thead><tr><th data-t="k_th1">Heute</th><th data-t="k_th2">Stärke</th><th data-t="k_th3">Was fehlt</th></tr></thead>
+    <tbody>
+      <tr><td><b>WhatsApp-Gruppen</b></td><td data-t="k1s">Alle sind drin, kostenlos</td><td data-t="k1m">Angebote verschwinden, keine Suche nach Ort</td></tr>
+      <tr><td><b>Instagram / TikTok</b></td><td data-t="k2s">Schöne Fotos, Flechterinnen sind dort aktiv</td><td data-t="k2m">Keine Suche „wer ist in meiner Nähe“</td></tr>
+      <tr><td><b>Google Maps</b></td><td data-t="k3s">Findet Shops und Restaurants</td><td data-t="k3m">Keine Privatanbieter, keine Gemeinden in Mietsälen</td></tr>
+      <tr><td><b>Kleinanzeigen</b></td><td data-t="k4s">Riesig, Umkreissuche</td><td data-t="k4m">Die Community sucht dort nicht</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<!-- RISIKEN -->
+<section><div class="wrap">
+  <div class="kicker" data-t="r_k">Risiken zuerst</div>
+  <h2 data-t="r_h">Was schiefgehen kann</h2>
+  <div class="grid2">
+    <div class="card"><span class="badge b-bad" data-t="r1_b">Hoch</span><h3 data-t="r1_h">Kaum Zahlungsbereitschaft</h3><p class="muted" data-t="r1_p">Die Zielgruppe gibt ungern Geld aus. Die Karte bleibt deshalb gratis. Geld kommt, wenn überhaupt, erst später über Njangi und kleine Extras.</p></div>
+    <div class="card"><span class="badge b-warn" data-t="r2_b">Mittel</span><h3 data-t="r2_h">Leere Karte am Anfang</h3><p class="muted" data-t="r2_p">Gegenmittel: Gemeinden und Shops vorab eintragen und die Gemeinden als Verbreitungsweg nutzen. Ein Pastor teilt den Link, und 200 Leute sind erreicht.</p></div>
+    <div class="card"><span class="badge b-warn" data-t="r3_b">Mittel</span><h3 data-t="r3_h">Recht</h3><p class="muted" data-t="r3_p">Friseur ist ein Handwerk mit Meisterpflicht, Essen verkaufen braucht Gewerbe und Hygiene-Belehrung. Die App vermittelt nur Kontakte und zeigt Hinweise. Sie kennt keine Zahlungen.</p></div>
+    <div class="card"><span class="badge b-warn" data-t="r4_b">Mittel</span><h3 data-t="r4_h">Support und Missbrauch</h3><p class="muted" data-t="r4_p">Falsche Einträge und Betrug: Es braucht einen Melde-Knopf und eine Prüfung neuer Anbieter. Freundschafts-Funktionen kommen deshalb erst ganz zum Schluss.</p></div>
+  </div>
+</div></section>
+
+<!-- GELD -->
+<section class="band"><div class="wrap">
+  <div class="kicker" style="color:var(--gold)" data-t="m_k">Geld</div>
+  <h2 data-t="m_h">Erst nützlich sein, dann verdienen</h2>
+  <p class="lead" data-t="m_p">Kosten am Anfang: fast null. Das Entwickler-Konto, EAS und der kostenlose Supabase-Tarif sind schon vorhanden. Einnahmen kommen frühestens, wenn viele die App nutzen. Realistisch ist ein kleines Nebeneinkommen, kein großes Geschäft.</p>
+  <div class="grid3">
+    <div class="card"><h3 data-t="m1_h">Gratis für alle</h3><p class="muted" data-t="m1_p">Suchen, finden, sich eintragen.</p></div>
+    <div class="card"><h3 data-t="m2_h">Kleines Extra</h3><p class="muted" data-t="m2_p">Zum Beispiel 2 € einmalig für Anbieter: mehr Fotos und oben in der Liste.</p></div>
+    <div class="card"><h3 data-t="m3_h">Njangi-Manager</h3><p class="muted" data-t="m3_p">Pro Gruppe ein kleiner Betrag. Ihn zahlt die Organisatorin, nicht jedes Mitglied.</p></div>
+  </div>
+</div></section>
+
+<!-- TESTS + ENTSCHEIDUNG -->
+<section id="entscheidung"><div class="wrap">
+  <div class="kicker" data-t="t_k">Bevor gebaut wird</div>
+  <h2 data-t="t_h">Drei kleine Tests</h2>
+  <div class="grid3">
+    <div class="card"><h3 data-t="t1_h">1. Die Friseurin fragen</h3><p class="muted" data-t="t1_p">Würdest du dich kostenlos eintragen, wenn dir das Kundinnen in deiner Nähe bringt?</p></div>
+    <div class="card"><h3 data-t="t2_h">2. Die eigene Gemeinde</h3><p class="muted" data-t="t2_p">Würde der Pastor oder die Gemeindegruppe den Link zur App teilen?</p></div>
+    <div class="card"><h3 data-t="t3_h">3. Eine Njangi-Organisatorin</h3><p class="muted" data-t="t3_p">Wäre ihr eine App 2–3 € im Monat für die ganze Gruppe wert?</p></div>
+  </div>
+  <p class="lead" style="margin-top:28px" data-t="t_end">Sind zwei von drei Antworten ein klares Ja, lohnt sich ein Prototyp. Sonst lassen wir die Idee fallen.</p>
+</div></section>
+
+<footer><div class="wrap" data-t="foot">Interner Entwurf, nicht öffentlich. Alle Namen, Orte und Preise in den Bildschirmen sind erfunden. „Mboa“ ist ein Arbeitstitel.</div></footer>
+
+<script>
+/* ---------- Handy-Bildschirme ---------- */
+const MAPSVG = `<svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="300" height="400" fill="var(--map)"/>
+  <path d="M-10 300 C80 280 140 330 310 290 L310 340 C150 380 80 330 -10 350Z" fill="var(--water)"/>
+  <rect x="190" y="40" width="90" height="70" rx="10" fill="var(--park)"/>
+  <rect x="20" y="170" width="70" height="60" rx="10" fill="var(--park)"/>
+  <g stroke="var(--street)" stroke-linecap="round" fill="none">
+    <path d="M-10 120 L310 90" stroke-width="12"/><path d="M110 -10 L150 420" stroke-width="12"/>
+    <path d="M-10 250 L310 230" stroke-width="8"/><path d="M230 -10 L250 300" stroke-width="8"/>
+    <path d="M40 -10 L60 300" stroke-width="6"/><path d="M-10 40 L310 20" stroke-width="6"/><path d="M150 160 L310 170" stroke-width="6"/>
+  </g></svg>`;
+const pin=(x,y,c,s)=>`<div class="pin" style="left:${x}%;top:${y}%;background:var(--${c})"><span>${s}</span></div>`;
+const status=`<div class="status"><span>9:41</span><span>●●● ▮</span></div>`;
+const tabs=(on)=>`<div class="tabbar">${[["t_map","Karte"],["t_search","Suchen"],["t_add","Eintragen"],["t_njangi","Njangi"],["t_me","Ich"]].map((t,i)=>`<div class="${i===on?'on':''}"><b></b><span data-t="${t[0]}">${t[1]}</span></div>`).join("")}</div>`;
+
+const S1 = ()=>`<div class="phone"><div class="screen">${status}
+  <div class="apphead"><div class="search">🔍 <span data-t="m_search">Flechten, Ndolé, Gemeinde …</span></div></div>
+  <div class="fchips"><span class="fchip on" style="background:var(--hair)" data-t="c_hair2">Haare</span><span class="fchip" data-t="c_food2">Essen</span><span class="fchip" data-t="c_church2">Gemeinden</span><span class="fchip" data-t="c_shop2">Shops</span></div>
+  <div class="map">${MAPSVG}
+    ${pin(30,22,'hair','✂')}${pin(70,30,'hair','✂')}${pin(52,48,'food','🍲')}${pin(22,58,'church','✝')}${pin(80,62,'shop','🛒')}${pin(60,14,'hair','✂')}
+    <div class="me" style="left:46%;top:38%"></div>
+    <div class="sheet"><div class="row"><div class="ava" style="background:var(--hair)">AK</div><div style="flex:1"><b>Aïcha K.</b> · <span class="small">2,4 km</span><div class="small" data-t="m_braids">Knotless Braids, Twists · ab 70 €</div></div></div>
+      <div class="small" style="margin-top:6px">★ 4,9 · <span data-t="m_rev">23 Empfehlungen</span> · <span data-t="m_home">kommt auch nach Hause</span></div></div>
+  </div>${tabs(0)}</div></div>`;
+
+const S2 = ()=>`<div class="phone"><div class="screen">${status}
+  <div class="scroll" style="padding-top:6px">
+    <div class="small">← <span data-t="back">Zurück</span></div>
+    <div class="row" style="margin-top:10px"><div class="ava" style="background:var(--hair);width:56px;height:56px;font-size:18px">AK</div><div><b style="font-size:16px">Aïcha K.</b><div class="small">Wiesbaden-Biebrich · 2,4 km</div><div class="small">★ 4,9 · <span data-t="m_rev">23 Empfehlungen</span></div></div></div>
+    <div class="gal"><div style="background:linear-gradient(135deg,#5A2E1E,#B07A4F)"></div><div style="background:linear-gradient(135deg,#2B1A12,#8C5A3C)"></div><div style="background:linear-gradient(135deg,#7A3E2A,#D9A066)"></div></div>
+    <b data-t="prices">Preise (ab)</b>
+    <div class="listitem" style="padding:7px 0"><span style="flex:1">Knotless Braids</span><b>70 €</b></div>
+    <div class="listitem" style="padding:7px 0"><span style="flex:1">Box Braids</span><b>60 €</b></div>
+    <div class="listitem" style="padding:7px 0"><span style="flex:1">Twists</span><b>50 €</b></div>
+    <div style="margin-top:8px"><span class="tag" data-t="m_home">kommt auch nach Hause</span><span class="tag">FR · EN</span><span class="tag" data-t="m_sat">auch samstags</span></div>
+    <div class="wa">💬 <span data-t="wa">Per WhatsApp anfragen</span></div>
+    <div class="small" style="text-align:center;margin-top:8px" data-t="nopay">Bezahlt wird direkt bei der Anbieterin.</div>
+  </div>${tabs(1)}</div></div>`;
+
+const S3 = ()=>`<div class="phone"><div class="screen">${status}
+  <div style="height:120px;background:linear-gradient(135deg,var(--church),#1C3A66);color:#fff;padding:16px 14px;display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="small" style="color:#D6E2F5" data-t="church_type">Gemeinde · Pfingstkirche</div><b style="font-size:17px">Église de la Grâce Mainz</b></div>
+  <div class="scroll" style="padding-top:10px">
+    <div class="listitem"><span>🕙</span><div><b data-t="svc">Gottesdienst</b><div class="small" data-t="svc_t">Sonntag 11:00 · Französisch &amp; Englisch</div></div></div>
+    <div class="listitem"><span>📍</span><div><b>Mainz-Hechtsheim</b><div class="small" data-t="hall">Gemeindesaal, 6,1 km</div></div></div>
+    <div class="listitem"><span>🙏</span><div><b data-t="prayer">Gebetsabend</b><div class="small" data-t="prayer_t">Mittwoch 19:30 · online &amp; vor Ort</div></div></div>
+    <div class="listitem"><span>🎶</span><div><b data-t="choir">Chor &amp; Jugendgruppe</b><div class="small" data-t="choir_t">Neue sind willkommen</div></div></div>
+    <div class="wa" style="background:var(--church)">📅 <span data-t="next">Nächstes Treffen merken</span></div>
+    <div class="small" style="text-align:center;margin-top:8px" data-t="claimed">Eintrag von der Gemeinde bestätigt ✓</div>
+  </div>${tabs(0)}</div></div>`;
+
+const S4 = ()=>`<div class="phone"><div class="screen">${status}
+  <div class="scroll" style="padding-top:6px">
+    <b style="font-size:17px" data-t="add_h">Was bietest du an?</b>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0">
+      <div class="card" style="padding:10px;border-color:var(--food);border-width:2px"><b style="color:var(--food)">🍲</b> <span data-t="c_food2">Essen</span></div>
+      <div class="card" style="padding:10px">✂ <span data-t="c_hair2">Haare</span></div>
+      <div class="card" style="padding:10px">🧵 <span data-t="c_craft">Handarbeit</span></div>
+      <div class="card" style="padding:10px">➕ <span data-t="c_other">Anderes</span></div>
+    </div>
+    <div class="small" data-t="add_title">Titel</div>
+    <div class="search" style="margin:4px 0 10px;color:var(--ink)">Ndolé, Poulet DG, Puff-Puff</div>
+    <div class="small" data-t="add_where">Wo?</div>
+    <div class="listitem" style="padding:8px 0"><span>◉</span><span data-t="add_approx">Nur ungefährer Ort (Stadtteil)</span></div>
+    <div class="listitem" style="padding:8px 0;color:var(--muted)"><span>○</span><span data-t="add_exact">Genaue Adresse zeigen</span></div>
+    <div class="small" style="margin-top:8px" data-t="add_contact">Kontakt: WhatsApp-Nummer wird erst nach Klick angezeigt</div>
+    <div class="small" style="margin-top:8px;background:var(--warn-bg);color:var(--warn);padding:8px;border-radius:10px" data-t="add_hint">Hinweis: Wer regelmäßig Essen verkauft, braucht ein Gewerbe und eine Hygiene-Belehrung.</div>
+    <div class="wa" style="background:var(--clay)" data-t="add_btn">Eintrag veröffentlichen</div>
+  </div>${tabs(2)}</div></div>`;
+
+document.getElementById("heroPhone").innerHTML=S1();
+document.getElementById("s1").innerHTML=S1();
+document.getElementById("s2").innerHTML=S2();
+document.getElementById("s3").innerHTML=S3();
+document.getElementById("s4").innerHTML=S4();
+
+/* ---------- Übersetzungen (FR); DE steht im HTML ---------- */
+const FR={
+draft:"Brouillon",hero_k:"Idée d'app pour la diaspora africaine",hero_h:"Un bout du mboa – juste à côté.",
+hero_p:"Mboa montre sur une carte ce que la communauté propose près de chez toi : tresseuses, cuisine africaine, églises, boutiques afro. Et plus tard le gestionnaire de Njangi pour ton groupe.",
+c_hair:"Coiffure & tresses",c_food:"Cuisine & traiteur",c_church:"Églises",c_shop:"Boutiques afro",c_njangi:"Njangi (plus tard)",
+cta1:"Voir l'app",cta2:"Vers la décision",
+prob_k:"Le problème",prob_h:"La communauté est là – on ne la trouve juste pas.",
+p1_h:"4 heures de train pour une coiffure",p1_p:"Des tresseuses voyagent des heures vers leurs clientes, parce que personne ne les connaît près de chez elles. Pour environ 90 €, il ne reste presque rien par heure.",
+p2_h:"Les offres se perdent dans WhatsApp",p2_p:"Ndolé, puff-puff, traiteur pour les fêtes : qui cuisine bien poste dans des groupes. Deux jours plus tard le message a disparu, et les nouveaux ne le voient jamais.",
+p3_h:"L'église comme lieu de rencontre manque",p3_p:"Au pays, l'église est le lieu où l'on se retrouve. Ici, quand on est nouveau ou à la campagne, on ne sait souvent pas où trouver une église en français ou en anglais.",
+scr_k:"Prototype",scr_h:"Voilà à quoi l'app pourrait ressembler",scr_p:"Quatre écrans d'exemple. Les noms, lieux et prix sont inventés.",
+f1_h:"Carte",f1_p:"Tout près de toi, filtré par catégorie.",f2_h:"Profil tresseuse",f2_p:"Photos, prix à partir de, contact WhatsApp.",f3_h:"Église",f3_p:"Culte, langue, rencontres.",f4_h:"Créer une annonce",f4_p:"En 2 minutes, l'adresse reste approximative si tu veux.",
+ph_k:"Construction par étapes",ph_h:"Une app qui grandit avec la communauté",
+ph1_b:"Phase 1 – lancement",ph1_h:"La carte",ph1_p:"Les églises, boutiques afro et restaurants sont ajoutés à l'avance à partir de sources publiques. La carte est donc remplie dès le premier jour. Tresseuses, cuisinières et autres s'inscrivent gratuitement.",
+ph2_b:"Phase 2",ph2_h:"Gestionnaire de Njangi",ph2_p:"Cotisations, ordre des bénéficiaires, amendes et procès-verbaux du Njangi dans l'app. C'est la première partie pour laquelle les groupes pourraient payer.",
+ph3_b:"Phase 3 – peut-être",ph3_h:"Faire des rencontres",ph3_p:"Contacts et amitiés dans la communauté. Seulement quand il y a assez d'utilisateurs, car il faut modérer et protéger contre les arnaques.",
+d_k:"Premier contrôle",d_h:"Y a-t-il assez pour remplir la carte ?",
+d1:"personnes d'origine africaine en Allemagne (Office fédéral de la statistique, chiffre plus ancien ; estimations récentes jusqu'à environ 1 million).",
+d2:"boutiques afro sont déjà dans OpenStreetMap et peuvent être reprises.",
+d3:"églises d'inspiration africaine y sont trouvables par leur nom. Le vrai nombre est bien plus élevé : beaucoup louent des salles et ne figurent sur aucune carte.",
+d_note:"À la campagne la carte est moins remplie. Mais c'est justement là qu'elle aide le plus, car sinon on ne trouve rien. Les églises manquantes peuvent être ajoutées via leurs sites et pages Facebook.",
+k_k:"Honnêtement",k_h:"Ce que les gens utilisent aujourd'hui",k_th1:"Aujourd'hui",k_th2:"Force",k_th3:"Ce qui manque",
+k1s:"Tout le monde y est, gratuit",k1m:"Les offres disparaissent, pas de recherche par lieu",k2s:"Belles photos, les tresseuses y sont actives",k2m:"Pas de recherche « qui est près de moi »",
+k3s:"Trouve boutiques et restaurants",k3m:"Pas de particuliers, pas d'églises en salles louées",k4s:"Énorme, recherche par rayon",k4m:"La communauté n'y cherche pas",
+r_k:"Les risques d'abord",r_h:"Ce qui peut mal tourner",
+r1_b:"Élevé",r1_h:"Peu de volonté de payer",r1_p:"Le public cible dépense peu. La carte reste donc gratuite. L'argent vient, si jamais, plus tard via le Njangi et de petits extras.",
+r2_b:"Moyen",r2_h:"Carte vide au début",r2_p:"Remède : ajouter églises et boutiques à l'avance et passer par les églises. Un pasteur partage le lien – 200 personnes atteintes.",
+r3_b:"Moyen",r3_h:"Droit",r3_p:"En Allemagne, la coiffure est un métier artisanal réglementé, vendre de la nourriture demande une déclaration d'activité et une formation hygiène. L'app ne fait que mettre en contact, avec des avertissements. Elle ne voit aucun paiement.",
+r4_b:"Moyen",r4_h:"Support et abus",r4_p:"Fausses annonces et arnaques : il faut un bouton de signalement et une vérification des nouveaux. Les fonctions de rencontre viennent donc en dernier.",
+m_k:"Argent",m_h:"D'abord être utile, ensuite gagner",m_p:"Coûts au départ : presque zéro. Le compte développeur, EAS et l'offre gratuite de Supabase existent déjà. Les revenus viennent au plus tôt quand beaucoup utilisent l'app. Réaliste : un petit revenu d'appoint, pas une grande affaire.",
+m1_h:"Gratuit pour tous",m1_p:"Chercher, trouver, s'inscrire.",m2_h:"Petit extra",m2_p:"Par exemple 2 € une fois pour les prestataires : plus de photos et en haut de la liste.",m3_h:"Gestionnaire de Njangi",m3_p:"Un petit montant par groupe. C'est l'organisatrice qui paie, pas chaque membre.",
+t_k:"Avant de construire",t_h:"Trois petits tests",
+t1_h:"1. Demander à la tresseuse",t1_p:"T'inscrirais-tu gratuitement si cela t'amène des clientes près de chez toi ?",
+t2_h:"2. Notre propre église",t2_p:"Le pasteur ou le groupe de l'église partagerait-il le lien de l'app ?",
+t3_h:"3. Une organisatrice de Njangi",t3_p:"Une app vaudrait-elle 2–3 € par mois pour tout le groupe ?",
+t_end:"Si deux réponses sur trois sont un oui clair, un prototype vaut la peine. Sinon on abandonne l'idée.",
+foot:"Brouillon interne, non public. Tous les noms, lieux et prix des écrans sont inventés. « Mboa » est un nom provisoire.",
+t_map:"Carte",t_search:"Chercher",t_add:"Ajouter",t_njangi:"Njangi",t_me:"Moi",
+m_search:"Tresses, ndolé, église …",c_hair2:"Coiffure",c_food2:"Cuisine",c_church2:"Églises",c_shop2:"Boutiques",
+m_braids:"Knotless braids, twists · dès 70 €",m_rev:"23 recommandations",m_home:"se déplace à domicile",back:"Retour",prices:"Prix (à partir de)",m_sat:"aussi le samedi",
+wa:"Demander par WhatsApp",nopay:"Le paiement se fait directement avec la prestataire.",
+church_type:"Église · pentecôtiste",svc:"Culte",svc_t:"Dimanche 11h · français & anglais",hall:"Salle paroissiale, 6,1 km",prayer:"Soirée de prière",prayer_t:"Mercredi 19h30 · en ligne & sur place",
+choir:"Chorale & jeunesse",choir_t:"Les nouveaux sont bienvenus",next:"Retenir la prochaine rencontre",claimed:"Annonce confirmée par l'église ✓",
+add_h:"Que proposes-tu ?",c_craft:"Fait main",c_other:"Autre",add_title:"Titre",add_where:"Où ?",add_approx:"Seulement le quartier",add_exact:"Afficher l'adresse exacte",
+add_contact:"Contact : le numéro WhatsApp s'affiche seulement après un clic",add_hint:"Note : vendre régulièrement de la nourriture demande une déclaration d'activité et une formation hygiène.",add_btn:"Publier l'annonce"
+};
+const DE={};document.querySelectorAll("[data-t]").forEach(el=>{DE[el.dataset.t]=el.innerHTML});
+function setLang(l){
+  const T=l==="fr"?FR:DE;
+  document.querySelectorAll("[data-t]").forEach(el=>{const v=T[el.dataset.t];if(v!==undefined)el.innerHTML=v});
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===l));
+  document.documentElement.lang=l;
+  try{localStorage.setItem("mboa-lang",l)}catch(e){}
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+try{const s=localStorage.getItem("mboa-lang");if(s==="fr")setLang("fr")}catch(e){}
+</script>
+</body>
+</html>
