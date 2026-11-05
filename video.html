@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Mboa – Erklärvideo</title>
+<title>Mboa – Explainer video</title>
 <style>
   body { margin: 0; background: #FAF5EE; color: #241A14; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
   .top { display: flex; align-items: center; gap: 6px; padding: 12px 16px; }
@@ -13,45 +13,55 @@
   .langs button.on { background: #B4532A; border-color: #B4532A; color: #fff; }
   main { max-width: 440px; margin: 0 auto; padding: 4px 16px 40px; }
   h1 { font-size: 24px; margin: 6px 0 14px; text-align: center; }
-  video { width: 100%; border-radius: 18px; background: #7E3517; box-shadow: 0 6px 24px rgba(36, 26, 20, .2); display: block; }
+  #box video { width: 100%; border-radius: 18px; background: #7E3517; box-shadow: 0 6px 24px rgba(36, 26, 20, .2); display: block; aspect-ratio: 9 / 16; }
   p { line-height: 1.5; text-align: center; color: #6B5B50; }
 </style>
 </head>
 <body>
 <div class="top">
   <div class="langs">
-    <button data-l="de">Deutsch</button>
     <button data-l="en">English</button>
+    <button data-l="fr">Français</button>
+    <button data-l="de">Deutsch</button>
   </div>
 </div>
 <main>
   <h1 id="h"></h1>
-  <video id="v" controls playsinline preload="metadata"></video>
+  <div id="box"></div>
   <p id="p"></p>
 </main>
 <script>
-  // Eine Seite für beide Sprachen: ?lang=de|en (Französisch sieht die englische Fassung)
+  // Eine Seite für alle Sprachen: ?lang=en|fr|de.
+  // Beim Sprachwechsel wird das Video-Element komplett neu angelegt – sonst fehlt auf manchen Handys der Abspielknopf.
   var T = {
-    de: { title: 'Mboa – Erklärvideo', h: 'So funktioniert Mboa', p: 'Flechterinnen, Essen, Gemeinden und Afro-Shops in deiner Nähe – von und für die Community.' },
-    en: { title: 'Mboa – Explainer video', h: 'How Mboa works', p: 'Braiders, food, churches and Afro shops near you – by and for the community.' }
+    en: { title: 'Mboa – Explainer video', h: 'How Mboa works', p: 'Braiders, food, churches and Afro shops near you – by and for the community.' },
+    fr: { title: 'Mboa – Vidéo explicative', h: 'Comment fonctionne Mboa', p: 'Tresseuses, cuisine, églises et boutiques afro près de chez toi – par et pour la communauté.' },
+    de: { title: 'Mboa – Erklärvideo', h: 'So funktioniert Mboa', p: 'Flechterinnen, Essen, Gemeinden und Afro-Shops in deiner Nähe – von und für die Community.' }
   };
   var q = new URLSearchParams(location.search);
   var lang = q.get('lang');
   function show(l) {
-    var t = T[l], v = document.getElementById('v');
+    var t = T[l], box = document.getElementById('box');
+    var old = box.querySelector('video');
+    if (old) { old.pause(); old.removeAttribute('src'); old.load(); }
+    var v = document.createElement('video');
+    v.controls = true;
+    v.playsInline = true;
+    v.setAttribute('playsinline', '');
+    v.preload = 'metadata';
+    v.poster = 'poster-' + l + '.jpg';
+    v.src = 'erklaervideo-' + l + '.mp4';
+    box.replaceChildren(v);
     document.documentElement.lang = l;
     document.title = t.title;
     document.getElementById('h').textContent = t.h;
     document.getElementById('p').textContent = t.p;
-    v.pause();
-    v.poster = 'poster-' + l + '.jpg';
-    v.src = 'erklaervideo-' + l + '.mp4';
-    v.load();
     document.querySelectorAll('.langs button').forEach(function (b) { b.classList.toggle('on', b.dataset.l === l); });
     history.replaceState(null, '', '?lang=' + l);
   }
   document.querySelectorAll('.langs button').forEach(function (b) { b.onclick = function () { show(b.dataset.l); }; });
-  show(T[lang] ? lang : /^de/i.test(navigator.language || '') ? 'de' : 'en');
+  var nav = (navigator.language || '').slice(0, 2).toLowerCase();
+  show(T[lang] ? lang : T[nav] ? nav : 'en');
 </script>
 </body>
 </html>
