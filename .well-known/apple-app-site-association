@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["KL5R887LP4.de.mboa.app"],
+        "components": [{ "/": "/o/*", "comment": "Einträge in der App öffnen" }]
+      }
+    ]
+  }
+}

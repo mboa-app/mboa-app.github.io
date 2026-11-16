@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.mboa.app",
+      "sha256_cert_fingerprints": [
+        "A6:49:23:B5:6C:DF:4D:F5:46:D8:09:C9:E6:B1:74:4F:A7:24:64:56:25:0E:F0:74:A0:00:8E:16:F6:1A:1E:1B",
+        "3D:A2:AA:B6:00:20:C0:D5:00:8D:11:DD:DD:BF:A7:E1:4D:58:5C:88:7D:91:2F:BB:16:3C:5B:92:63:06:A9:43"
+      ]
+    }
+  }
+]

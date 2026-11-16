@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mboa</title>
+<meta name="description" content="Mboa – braiders, African food, churches and Afro shops near you.">
+<meta name="theme-color" content="#B4532A">
+<style>
+  :root { --bg:#FAF5EE; --card:#fff; --ink:#241A14; --muted:#6B5B50; --line:#E6DBCF; --brand:#B4532A; --brandDeep:#8A3A1B; --wa:#1E8E50; --star:#B4532A; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { max-width:520px; margin:0 auto; padding:16px 16px 48px; }
+  header { display:flex; align-items:center; gap:10px; padding:6px 0 14px; }
+  header .pin { width:30px; height:30px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:var(--brand); display:flex; align-items:center; justify-content:center; }
+  header .pin i { width:11px; height:11px; border-radius:50%; background:var(--bg); display:block; }
+  header b { font-size:26px; letter-spacing:-.5px; }
+  .weave { height:8px; margin:0 0 16px; background:repeating-linear-gradient(135deg, transparent 0 6px, var(--brand) 6px 8px); opacity:.35; border-radius:4px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; margin:14px 0; }
+  .cat { display:inline-block; font-size:13px; font-weight:700; color:#fff; border-radius:999px; padding:3px 10px; }
+  .star { display:inline-block; font-size:13px; font-weight:800; color:#fff; background:var(--star); border-radius:999px; padding:3px 10px; margin-left:6px; }
+  h1 { font-size:26px; line-height:1.2; margin:10px 0 4px; }
+  .muted { color:var(--muted); font-size:15px; }
+  .photos { display:flex; gap:8px; overflow-x:auto; margin:12px 0 4px; }
+  .photos img { height:150px; border-radius:12px; flex:none; }
+  .prices div { display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:7px 0; }
+  .prices div:last-child { border-bottom:0; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; text-decoration:none; font-weight:800; font-size:17px; border-radius:14px; padding:15px; margin:10px 0 0; border:0; cursor:pointer; }
+  .btn.wa { background:var(--wa); color:#fff; }
+  .btn.main { background:var(--brand); color:#fff; }
+  .btn.ghost { background:transparent; color:var(--brandDeep); border:2px solid var(--line); }
+  .stores { display:flex; flex-direction:column; gap:0; }
+  .note { font-size:14px; color:var(--muted); margin-top:10px; }
+  footer { text-align:center; font-size:13px; color:var(--muted); margin-top:26px; }
+  footer a { color:var(--muted); }
+  .hidden { display:none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#1C1512; --card:#271E19; --ink:#F6EDE4; --muted:#BBA99B; --line:#5A473B; --brandDeep:#F0A47E; }
+  }
+  :root[data-theme="dark"] { --bg:#1C1512; --card:#271E19; --ink:#F6EDE4; --muted:#BBA99B; --line:#5A473B; --brandDeep:#F0A47E; }
+</style>
+</head>
+<body>
+<main>
+  <header><span class="pin"><i></i></span><b>Mboa</b></header>
+  <div class="weave"></div>
+
+  <!-- Eintrag (wird per Skript gefüllt, alle Nutzertexte nur als Text eingesetzt) -->
+  <section id="place" class="card hidden">
+    <span id="cat" class="cat"></span><span id="star" class="star hidden"></span>
+    <h1 id="name"></h1>
+    <div id="city" class="muted"></div>
+    <div id="photos" class="photos"></div>
+    <p id="descr"></p>
+    <div id="pricesBox" class="hidden"><b id="pricesTitle"></b><div id="prices" class="prices"></div><div id="nego" class="muted"></div></div>
+    <p id="hours" class="muted"></p>
+    <a id="wa" class="btn wa hidden" target="_blank" rel="noopener"></a>
+    <a id="social" class="btn ghost hidden" target="_blank" rel="noopener"></a>
+  </section>
+
+  <section id="notfound" class="card hidden"><b id="nfTitle"></b><p id="nfText" class="muted"></p></section>
+
+  <!-- App laden -->
+  <section class="card">
+    <h2 id="getTitle" style="margin:0 0 4px;font-size:20px"></h2>
+    <p id="getText" class="muted" style="margin:0"></p>
+    <div class="stores">
+      <a id="ios" class="btn main" href="https://apps.apple.com/app/id6831520773"></a>
+      <a id="android" class="btn main" href="https://play.google.com/store/apps/details?id=de.mboa.app"></a>
+      <a id="open" class="btn ghost hidden"></a>
+    </div>
+    <p id="openNote" class="note hidden"></p>
+  </section>
+
+  <footer><span id="free"></span><br><a href="../impressum-en.html" id="imp"></a> · <a href="../datenschutz-en.html" id="priv"></a></footer>
+</main>
+
+<script>
+(function () {
+  var SUPA = 'https://kfqpdchuidfndgwqkfxd.supabase.co';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmcXBkY2h1aWRmbmRnd3FrZnhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NDc0MjIsImV4cCI6MjEwOTUyMzQyMn0.cHsnnxOfQHPZKZFOKxmeQ_3lnqt9Lo5kS9Vi73XbqZE';
+  var q = new URLSearchParams(location.search);
+  var id = (q.get('id') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 80);
+  var nav = (navigator.language || 'en').slice(0, 2);
+  var lang = ['en', 'fr', 'de'].indexOf(q.get('lang')) >= 0 ? q.get('lang') : (['fr', 'de'].indexOf(nav) >= 0 ? nav : 'en');
+  document.documentElement.lang = lang;
+
+  var T = {
+    en: { hair: 'Hair & braids', food: 'Food & catering', church: 'Church', shop: 'Afro shop', group: 'Association', only: '★ Only on Mboa', approx: 'approximate location: ', prices: 'Prices (from)', nego: 'Price negotiable', home: 'Home visits', wa: 'Ask via WhatsApp', waMsg: 'Hello, I found you on Mboa: ', insta: 'See work on Instagram', tiktok: 'See work on TikTok', web: 'Website', getTitle: 'Get the Mboa app', getText: 'Braiders, African food, churches and Afro shops near you – and a free place to offer your own.', getTextPlace: 'See more offers like this near you – free, no ads.', ios: 'Download on the App Store', android: 'Get it on Google Play', open: 'Already installed? Open in the app', openNote: 'New to Mboa? 1. Download the app  2. Open it once  3. Scan the code or tap the link again – the listing opens directly.', nfTitle: 'Listing not found', nfText: 'It may have been removed. Discover other offers in the app.', free: 'Free · no ads · no fees', imp: 'Imprint', priv: 'Privacy', hours: 'Opening hours: ' },
+    fr: { hair: 'Coiffure & tresses', food: 'Cuisine & traiteur', church: 'Église', shop: 'Boutique afro', group: 'Association', only: '★ Seulement sur Mboa', approx: 'lieu approximatif : ', prices: 'Prix (à partir de)', nego: 'Prix négociable', home: 'À domicile', wa: 'Demander par WhatsApp', waMsg: 'Bonjour, je t’ai trouvé(e) sur Mboa : ', insta: 'Voir le travail sur Instagram', tiktok: 'Voir le travail sur TikTok', web: 'Site web', getTitle: 'Télécharge l’app Mboa', getText: 'Tresseuses, cuisine africaine, églises et boutiques afro près de chez toi – et propose ton offre gratuitement.', getTextPlace: 'Découvre d’autres offres comme celle-ci près de chez toi – gratuit, sans pub.', ios: 'Télécharger dans l’App Store', android: 'Disponible sur Google Play', open: 'Déjà installée ? Ouvrir dans l’app', openNote: 'Nouveau sur Mboa ? 1. Télécharge l’app  2. Ouvre-la une fois  3. Scanne le code ou touche le lien encore une fois – l’annonce s’ouvre directement.', nfTitle: 'Annonce introuvable', nfText: 'Elle a peut-être été supprimée. Découvre d’autres offres dans l’app.', free: 'Gratuit · sans pub · sans frais', imp: 'Mentions légales', priv: 'Confidentialité', hours: 'Horaires : ' },
+    de: { hair: 'Afro-Haare & Braids', food: 'Essen & Catering', church: 'Gemeinde', shop: 'Afro-Shop', group: 'Verein', only: '★ Nur bei Mboa', approx: 'ungefährer Ort: ', prices: 'Preise (ab)', nego: 'Preis verhandelbar', home: 'Hausbesuche', wa: 'Per WhatsApp anfragen', waMsg: 'Hallo, ich habe dich bei Mboa gefunden: ', insta: 'Arbeiten auf Instagram ansehen', tiktok: 'Arbeiten auf TikTok ansehen', web: 'Webseite', getTitle: 'Hol dir die Mboa-App', getText: 'Braiderinnen, afrikanisches Essen, Gemeinden und Afro-Shops in deiner Nähe – und kostenlos selbst anbieten.', getTextPlace: 'Finde mehr Angebote wie dieses in deiner Nähe – kostenlos, ohne Werbung.', ios: 'Im App Store laden', android: 'Bei Google Play laden', open: 'Schon installiert? In der App öffnen', openNote: 'Neu bei Mboa? 1. App laden  2. Einmal öffnen  3. Code noch einmal scannen oder Link noch einmal antippen – dann öffnet sich der Eintrag direkt.', nfTitle: 'Eintrag nicht gefunden', nfText: 'Vielleicht wurde er entfernt. Entdecke weitere Angebote in der App.', free: 'Kostenlos · ohne Werbung · ohne Gebühren', imp: 'Impressum', priv: 'Datenschutz', hours: 'Öffnungszeiten: ' }
+  }[lang];
+  var COLORS = { hair: '#8C3B6E', food: '#A16207', church: '#2F5E9E', shop: '#1F7A50', group: '#0E7490' };
+  var $ = function (i) { return document.getElementById(i); };
+  var txt = function (i, s) { $(i).textContent = s; };
+  var show = function (i, on) { $(i).classList.toggle('hidden', !on); };
+
+  // Texte setzen
+  ['ios', 'android', 'open', 'openNote', 'nfTitle', 'nfText', 'free', 'imp', 'priv', 'getTitle'].forEach(function (k) { txt(k, T[k]); });
+  txt('getText', id ? T.getTextPlace : T.getText);
+  if (lang === 'de') { $('imp').href = '../impressum.html'; $('priv').href = '../datenschutz.html'; }
+
+  // Passenden Store zeigen
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  if (id) $('android').href = 'https://play.google.com/store/apps/details?id=de.mboa.app&referrer=' + encodeURIComponent('mboa_id=' + id);
+  if (isIOS) show('android', false);
+  if (isAndroid) show('ios', false);
+  // Android öffnet installierte Apps über den Link selbst; auf dem iPhone hilft der Knopf
+  if (id && isIOS) {
+    $('open').href = 'mboa://ort/' + encodeURIComponent(id);
+    show('open', true);
+    show('openNote', true);
+  }
+
+  // Sichere Links: nur WhatsApp-Nummern, Instagram/TikTok und http(s)
+  function safeUrl(u) { try { var x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : null; } catch (e) { return null; } }
+  function socialUrl(s) {
+    if (!s) return null;
+    var v = String(s).trim();
+    if (/^@?[A-Za-z0-9._]{2,30}$/.test(v)) return 'https://www.instagram.com/' + v.replace(/^@/, '') + '/';
+    var u = safeUrl(/^https?:/i.test(v) ? v : 'https://' + v);
+    return u && /(^|\.)(instagram\.com|tiktok\.com)$/i.test(new URL(u).hostname) ? u : null;
+  }
+
+  if (!id) return;
+  fetch(SUPA + '/rest/v1/public_places?select=id,cat,name,descr,city,approx,hours,whatsapp,social,website,prices,negotiable,home_service,photos,source&id=eq.' + encodeURIComponent(id), { headers: { apikey: ANON, Authorization: 'Bearer ' + ANON } })
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (rows) {
+      var p = rows && rows[0];
+      if (!p) { show('notfound', true); return; }
+      document.title = p.name + ' – Mboa';
+      txt('cat', Object.prototype.hasOwnProperty.call(COLORS, p.cat) ? T[p.cat] : '');
+      $('cat').style.background = COLORS[p.cat] || '#6B5B50';
+      if (p.source === 'user' && (p.cat === 'hair' || p.cat === 'food')) { txt('star', T.only); show('star', true); }
+      txt('name', p.name);
+      if (p.city) txt('city', (p.approx ? T.approx : '') + p.city);
+      if (p.descr) txt('descr', p.descr);
+      (p.photos || []).slice(0, 3).forEach(function (u) {
+        if (!/^https:\/\/kfqpdchuidfndgwqkfxd\.supabase\.co\/storage\/v1\/object\/public\/photos\//.test(u)) return;
+        var img = document.createElement('img'); img.src = u; img.alt = ''; img.loading = 'lazy'; $('photos').appendChild(img);
+      });
+      if (p.prices && p.prices.length) {
+        txt('pricesTitle', T.prices);
+        p.prices.slice(0, 12).forEach(function (pr) {
+          var row = document.createElement('div'), a = document.createElement('span'), b = document.createElement('b');
+          a.textContent = pr.label || ''; b.textContent = pr.from != null ? pr.from + ' €' : '';
+          row.appendChild(a); row.appendChild(b); $('prices').appendChild(row);
+        });
+        var extra = [p.negotiable ? T.nego : '', p.home_service ? T.home : ''].filter(Boolean).join(' · ');
+        txt('nego', extra);
+        show('pricesBox', true);
+      }
+      if (p.hours) txt('hours', T.hours + p.hours);
+      var num = String(p.whatsapp || '').replace(/[^\d]/g, '');
+      if (num.length >= 8) {
+        $('wa').href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(T.waMsg + p.name);
+        txt('wa', T.wa); show('wa', true);
+      }
+      var s = socialUrl(p.social);
+      if (s) { $('social').href = s; txt('social', /tiktok/i.test(s) ? T.tiktok : T.insta); show('social', true); }
+      show('place', true);
+    })
+    .catch(function () { show('notfound', true); });
+})();
+</script>
+</body>
+</html>
