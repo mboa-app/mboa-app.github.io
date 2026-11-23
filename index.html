@@ -133,7 +133,7 @@ html[lang=de] .step b[data-l=de],html[lang=en] .step b[data-l=en],html[lang=fr] 
 
 <div class="card">
   <h2><span data-l="de">▶️ Erklärvideo</span><span data-l="en">▶️ Explainer video</span><span data-l="fr">▶️ Vidéo explicative</span><span data-l="nl">▶️ Uitlegvideo</span><span data-l="es">▶️ Vídeo explicativo</span><span data-l="it">▶️ Video esplicativo</span><span data-l="pt">▶️ Vídeo explicativo</span></h2>
-  <a class="poster" id="vid" href="video.html?lang=de"><img id="vimg" src="poster-de.jpg" alt=""><span><span data-l="de">Video ansehen</span><span data-l="en">Watch the video</span><span data-l="fr">Voir la vidéo</span><span data-l="nl">Video bekijken</span><span data-l="es">Ver el vídeo (en inglés)</span><span data-l="it">Guarda il video (in inglese)</span><span data-l="pt">Ver o vídeo (em inglês)</span></span></a>
+  <a class="poster" id="vid" href="video.html?lang=de"><img id="vimg" src="poster-de.jpg" alt=""><span><span data-l="de">Video ansehen</span><span data-l="en">Watch the video</span><span data-l="fr">Voir la vidéo</span><span data-l="nl">Video bekijken</span><span data-l="es">Ver el vídeo</span><span data-l="it">Guarda il video</span><span data-l="pt">Ver o vídeo</span></span></a>
 </div>
 
 <div class="card">
@@ -169,7 +169,7 @@ function setLang(l){
   ['de','en','fr','nl','es','it','pt'].forEach(function(x){document.getElementById('b-'+x).className=l===x?'on':''});
   // Rechtstexte gibt es auf DE, EN, NL, ES, IT, PT (Französisch: Englisch)
   document.querySelectorAll('[data-href-en]').forEach(function(a){if(!a.dataset.hrefDe)a.dataset.hrefDe=a.getAttribute('href');var h={de:a.dataset.hrefDe,nl:a.dataset.hrefNl,es:a.dataset.hrefEs,it:a.dataset.hrefIt,pt:a.dataset.hrefPt}[l];a.setAttribute('href',h||a.dataset.hrefEn)});
-  var v=['es','it','pt'].indexOf(l)>=0?'en':l; // Erklärvideo gibt es auf DE, EN, FR, NL
+  var v=l; // Erklärvideo in allen Sprachen (ES/IT/PT ohne Ton)
   document.getElementById('vid').href='video.html?lang='+v;
   document.getElementById('vimg').src='poster-'+v+'.jpg';
   try{localStorage.setItem('lang',l)}catch(e){}

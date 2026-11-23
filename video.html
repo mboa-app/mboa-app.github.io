@@ -8,7 +8,7 @@
 <style>
   body { margin: 0; background: #FAF5EE; color: #241A14; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
   .top { display: flex; align-items: center; gap: 6px; padding: 12px 16px; }
-  .langs { display: flex; gap: 6px; }
+  .langs { display: flex; flex-wrap: wrap; gap: 6px; }
   .langs button { font: inherit; font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 999px; border: 1px solid #E6DBCF; background: #fff; color: #6B5B50; cursor: pointer; min-height: 40px; }
   .langs button.on { background: #B4532A; border-color: #B4532A; color: #fff; }
   main { max-width: 440px; margin: 0 auto; padding: 4px 16px 40px; }
@@ -24,6 +24,9 @@
     <button data-l="fr">Français</button>
     <button data-l="de">Deutsch</button>
     <button data-l="nl">Nederlands</button>
+    <button data-l="es">Español</button>
+    <button data-l="it">Italiano</button>
+    <button data-l="pt">Português</button>
   </div>
 </div>
 <main>
@@ -32,16 +35,19 @@
   <p id="p"></p>
 </main>
 <script>
-  // Eine Seite für alle Sprachen: ?lang=en|fr|de|nl.
+  // Eine Seite für alle Sprachen: ?lang=en|fr|de|nl|es|it|pt (ES/IT/PT ohne Ton, mit Texteinblendung).
   // Beim Sprachwechsel wird das Video-Element komplett neu angelegt – sonst fehlt auf manchen Handys der Abspielknopf.
   var T = {
     en: { title: 'Mboa – Explainer video', h: 'How Mboa works', p: 'Braiders, food, churches and Afro shops near you – by and for the community.' },
     fr: { title: 'Mboa – Vidéo explicative', h: 'Comment fonctionne Mboa', p: 'Tresseuses, cuisine, églises et boutiques afro près de chez toi – par et pour la communauté.' },
     de: { title: 'Mboa – Erklärvideo', h: 'So funktioniert Mboa', p: 'Braiderinnen, Essen, Gemeinden und Afro-Shops in deiner Nähe – von und für die Community.' },
-    nl: { title: 'Mboa – Uitlegvideo', h: 'Zo werkt Mboa', p: 'Vlechtsters, eten, kerken en afroshops bij jou in de buurt – door en voor de community.' }
+    nl: { title: 'Mboa – Uitlegvideo', h: 'Zo werkt Mboa', p: 'Vlechtsters, eten, kerken en afroshops bij jou in de buurt – door en voor de community.' },
+    es: { title: 'Mboa – Vídeo explicativo', h: 'Así funciona Mboa', p: 'Trenzadoras, comida, iglesias y tiendas afro cerca de ti, por y para la comunidad. Vídeo sin sonido.' },
+    it: { title: 'Mboa – Video esplicativo', h: 'Come funziona Mboa', p: 'Treccine, cibo, chiese e negozi afro vicino a te, dalla comunità per la comunità. Video senza audio.' },
+    pt: { title: 'Mboa – Vídeo explicativo', h: 'Como funciona a Mboa', p: 'Trancistas, comida, igrejas e lojas afro perto de si, pela e para a comunidade. Vídeo sem som.' }
   };
   // Versionsnummer bei jeder neuen Videofassung erhöhen – sonst spielen Browser alte Dateien aus dem Zwischenspeicher
-  var V = '20261123-2';
+  var V = '20261123-3';
   var q = new URLSearchParams(location.search);
   var lang = q.get('lang');
   function show(l) {
