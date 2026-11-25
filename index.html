@@ -13,9 +13,7 @@
 body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:0 auto;padding:20px 16px 60px;color:var(--text);background:var(--bg);line-height:1.55}
 nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:18px;font-size:14px;align-items:center}
 nav a{color:var(--accentText);font-weight:600;text-decoration:none}
-.lang{margin-left:auto;display:flex;gap:6px}
-.lang button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;min-height:36px;font-weight:700;cursor:pointer;color:var(--muted)}
-.lang button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.lang{margin-left:auto;font:inherit;font-size:14px;font-weight:700;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer}
 .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px}
 .hero{display:flex;gap:16px;align-items:center}
 .logo{width:64px;height:64px;border-radius:16px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
@@ -51,7 +49,7 @@ html[lang=de] .step b[data-l=de],html[lang=en] .step b[data-l=en],html[lang=fr] 
 <a href="impressum.html" data-href-en="impressum-en.html" data-href-nl="impressum-nl.html" data-href-es="impressum-es.html" data-href-it="impressum-it.html" data-href-pt="impressum-pt.html"><span data-l="de">Impressum</span><span data-l="en">Legal notice</span><span data-l="fr">Mentions légales</span><span data-l="nl">Juridische informatie</span><span data-l="es">Aviso legal</span><span data-l="it">Note legali</span><span data-l="pt">Informação legal</span></a>
 <a href="nutzung.html" data-href-en="nutzung-en.html" data-href-nl="nutzung-nl.html" data-href-es="nutzung-es.html" data-href-it="nutzung-it.html" data-href-pt="nutzung-pt.html"><span data-l="de">Nutzungsregeln</span><span data-l="en">Terms</span><span data-l="fr">Conditions</span><span data-l="nl">Gebruiksvoorwaarden</span><span data-l="es">Normas de uso</span><span data-l="it">Regole d’uso</span><span data-l="pt">Regras de utilização</span></a>
 <a href="loeschen.html" data-href-en="loeschen-en.html" data-href-nl="loeschen-nl.html" data-href-es="loeschen-es.html" data-href-it="loeschen-it.html" data-href-pt="loeschen-pt.html"><span data-l="de">Konto löschen</span><span data-l="en">Delete account</span><span data-l="fr">Supprimer le compte</span><span data-l="nl">Account verwijderen</span><span data-l="es">Eliminar cuenta</span><span data-l="it">Elimina account</span><span data-l="pt">Eliminar conta</span></a>
-<span class="lang"><button id="b-de" onclick="setLang('de')">DE</button><button id="b-en" onclick="setLang('en')">EN</button><button id="b-fr" onclick="setLang('fr')">FR</button><button id="b-nl" onclick="setLang('nl')">NL</button><button id="b-es" onclick="setLang('es')">ES</button><button id="b-it" onclick="setLang('it')">IT</button><button id="b-pt" onclick="setLang('pt')">PT</button></span>
+<select class="lang" id="langSel" aria-label="Sprache / Language" onchange="setLang(this.value)"><option value="de">Deutsch</option><option value="en">English</option><option value="fr">Français</option><option value="nl">Nederlands</option><option value="es">Español</option><option value="it">Italiano</option><option value="pt">Português</option></select>
 </nav>
 
 <div class="card">
@@ -166,7 +164,7 @@ var ANDROID_LIVE = false;
 document.getElementById(ANDROID_LIVE ? 'play-soon' : 'play').style.display = 'none';
 function setLang(l){
   document.documentElement.lang=l;
-  ['de','en','fr','nl','es','it','pt'].forEach(function(x){document.getElementById('b-'+x).className=l===x?'on':''});
+  document.getElementById('langSel').value=l;
   // Rechtstexte gibt es auf DE, EN, NL, ES, IT, PT (Französisch: Englisch)
   document.querySelectorAll('[data-href-en]').forEach(function(a){if(!a.dataset.hrefDe)a.dataset.hrefDe=a.getAttribute('href');var h={de:a.dataset.hrefDe,nl:a.dataset.hrefNl,es:a.dataset.hrefEs,it:a.dataset.hrefIt,pt:a.dataset.hrefPt}[l];a.setAttribute('href',h||a.dataset.hrefEn)});
   var v=l; // Erklärvideo in allen Sprachen (ES/IT/PT ohne Ton)
