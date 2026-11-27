@@ -6,14 +6,19 @@
 <meta name="robots" content="noindex">
 <title>Mboa</title>
 <meta name="description" content="Mboa – braiders, African food, churches and Afro shops near you.">
-<meta name="theme-color" content="#B4532A">
+<link rel="icon" href="../brand/favicon.svg" type="image/svg+xml"><link rel="icon" href="../brand/favicon-196.png" sizes="196x196" type="image/png"><link rel="apple-touch-icon" href="../brand/apple-touch-icon.png"><meta name="theme-color" content="#C2532A">
+<meta property="og:site_name" content="Mboa">
+<meta property="og:image" content="https://mboa-app.github.io/brand/og-mboa.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <style>
-  :root { --bg:#FAF5EE; --card:#fff; --ink:#241A14; --muted:#6B5B50; --line:#E6DBCF; --brand:#B4532A; --brandDeep:#8A3A1B; --wa:#1E8E50; --star:#B4532A; }
+  @font-face{font-family:Figtree;font-weight:400;font-display:swap;src:url(../brand/fonts/Figtree_400Regular.ttf)}@font-face{font-family:Figtree;font-weight:700;font-display:swap;src:url(../brand/fonts/Figtree_700Bold.ttf)}@font-face{font-family:Figtree;font-weight:800;font-display:swap;src:url(../brand/fonts/Figtree_800ExtraBold.ttf)}
+  :root { --bg:#FBF6EF; --card:#fff; --ink:#241A14; --muted:#5E4E44; --line:#E6DBCF; --brand:#A3431F; --brandDeep:#7A2E14; --wa:#157347; --star:#A3431F; }
   * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.5 Figtree, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
   main { max-width:520px; margin:0 auto; padding:16px 16px 48px; }
   header { display:flex; align-items:center; gap:10px; padding:6px 0 14px; }
-  header .pin { width:30px; height:30px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:var(--brand); display:flex; align-items:center; justify-content:center; }
+  header .pin { width:27px; height:36px; display:block; }
   header .pin i { width:11px; height:11px; border-radius:50%; background:var(--bg); display:block; }
   header b { font-size:26px; letter-spacing:-.5px; }
   .weave { height:8px; margin:0 0 16px; background:repeating-linear-gradient(135deg, transparent 0 6px, var(--brand) 6px 8px); opacity:.35; border-radius:4px; }
@@ -43,7 +48,7 @@
 </head>
 <body>
 <main>
-  <header><span class="pin"><i></i></span><b>Mboa</b></header>
+  <header><img class="pin" src="../brand/mboa-pin.svg" alt=""><b>Mboa</b></header>
   <div class="weave"></div>
 
   <!-- Eintrag (wird per Skript gefüllt, alle Nutzertexte nur als Text eingesetzt) -->

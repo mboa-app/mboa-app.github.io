@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs>
+  <linearGradient id="earth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8E3618"/><stop offset="1" stop-color="#5E220E"/></linearGradient>
+  <filter id="sh_p" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#2A0E04" flood-opacity=".35"/></filter>
+</defs>
+<rect width="512" height="512" rx="112" fill="#C2532A"/>
+<g transform="translate(138.24 30.72) scale(0.46)">
+  <path d="M512 892 C416.24 780.28 246 612.92 246 448 A266 266 0 1 1 778 448 C778 612.92 607.76 780.28 512 892 Z" fill="#FBF6EF" stroke="#FBF6EF" stroke-width="26" stroke-linejoin="round" />
+  <clipPath id="clip_p"><path d="M512 846 C429.92 750.24 284 589.36 284 448 A228 228 0 1 1 740 448 C740 589.36 594.08 750.24 512 846 Z"/></clipPath>
+  <g clip-path="url(#clip_p)">
+    <rect x="200" y="150" width="624" height="760" fill="#2A8A5E"/>
+    <!-- große Rauten (Goldrahmen, helle Mitte), etwas größer als im Entwurf -->
+    <path d="M276 226 L372 322 L276 418 L180 322 Z" fill="#F2B51B"/><path d="M276 280 L318 322 L276 364 L234 322 Z" fill="#FBF6EF"/>
+    <path d="M748 226 L844 322 L748 418 L652 322 Z" fill="#F2B51B"/><path d="M748 280 L790 322 L748 364 L706 322 Z" fill="#FBF6EF"/>
+    <path d="M276 482 L372 578 L276 674 L180 578 Z" fill="#F2B51B"/><path d="M276 536 L318 578 L276 620 L234 578 Z" fill="#FBF6EF"/>
+    <path d="M748 482 L844 578 L748 674 L652 578 Z" fill="#F2B51B"/><path d="M748 536 L790 578 L748 620 L706 578 Z" fill="#FBF6EF"/>
+    <path d="M512 624 L608 720 L512 816 L416 720 Z" fill="#F2B51B"/><path d="M512 678 L554 720 L512 762 L470 720 Z" fill="#FBF6EF"/>
+    <path d="M512 70 L608 166 L512 262 L416 166 Z" fill="#F2B51B"/>
+  </g>
+  <!-- Wax-Rondell als Ortspunkt -->
+  <circle cx="512" cy="448" r="152" fill="#FBF6EF"/>
+  <circle cx="512" cy="448" r="128" fill="#F2B51B"/>
+  <circle cx="512" cy="448" r="86" fill="#A3431F"/>
+  <circle cx="512" cy="448" r="34" fill="#FBF6EF"/>
+</g>
+</svg>
